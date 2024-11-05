@@ -32,7 +32,7 @@ if __name__ == "__main__":
             bot.send_message(message.chat.id, f"{int(text[0]) / int(text[1])}")
 
     @bot.message_handler(commands=['help'])
-    def calculate(message):
+    def help(message):
         bot.send_message(message.chat.id, f'{commands}')
 
     bot.polling(none_stop=True)
