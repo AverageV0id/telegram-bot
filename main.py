@@ -1,6 +1,6 @@
 import telebot
 from setting import *
-
+from texts import *
 bot = telebot.TeleBot(token)
 
 if __name__ == "__main__":
@@ -30,4 +30,9 @@ if __name__ == "__main__":
         if '/' in text:
             text = text.split("/")
             bot.send_message(message.chat.id, f"{int(text[0]) / int(text[1])}")
+
+    @bot.message_handler(commands=['help'])
+    def calculate(message):
+        bot.send_message(message.chat.id, f'{commands}')
+
     bot.polling(none_stop=True)
