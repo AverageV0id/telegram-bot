@@ -1,6 +1,7 @@
 import telebot
 from math import *
 from matplotlib import pyplot as plt
+from diagrams import *
 from setting import *
 from texts import *
 
@@ -65,13 +66,26 @@ def evaluate(message):
         bot.send_message(message.chat.id, f'Ошибка: {e}')
 
 
-@bot.message_handler(commands=['bar'])
-def bar(message):
-    text = message.text[4:]
-    text = text.split()
-    plt.bar(text[0], text[1])
-    plt.grid()
-    plt.show()
+@bot.message_handler(commands=['graph'])
+def create_graph(message):
+    try:
+        text = message.text[6:]
+        text = text.split(',')
+
+        val = text[0].strip()
+        nam = text[1].strip()
+
+        val = val.split(" ")
+        nam = nam.split(" ")
+
+        val = list(map(int, val))
+
+        save_bar(nam, val, 'bar.png')
+
+        with open('bar.png', "rb") as photo:
+            bot.send_photo(message.chat.id, photo)
+    except Exception as e:
+        bot.send_message(message.chat.id, f'Ошибка: {e}')
 
 
 @bot.message_handler(content_types=['text'])
