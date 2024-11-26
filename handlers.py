@@ -66,19 +66,6 @@ def evaluate(message):
         bot.send_message(message.chat.id, f'Ошибка: {e}')
 
 
-@bot.message_handler(commands=['bar'])
-def bar(message):
-    text = message.text[4:]
-    text = text.split()
-    categories = []
-    text = list(map(int, text))
-    for i in range(len(text)):
-        categories.append(str(i+1))
-    plt.figure(figsize=(10, 5))
-    plt.bar(categories, text)
-    plt.show()
-
-
 @bot.message_handler(commands=['graph'])
 def create_graph(message):
     try:
