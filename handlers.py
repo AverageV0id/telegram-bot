@@ -139,7 +139,7 @@ def create_graphs(message):
     begin2 = int(begin2)
     end2 = int(end2)
     step2 = int(step2)
-    save_graph(begin1, end1, step1, func1, begin2, end2, step2, func2, 'graph.png')
+    save_graphs(begin1, end1, step1, func1, begin2, end2, step2, func2, 'graph.png')
     with open('graph.png', "rb") as photo:
         bot.send_photo(message.chat.id, photo)
 
