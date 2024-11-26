@@ -66,8 +66,9 @@ def evaluate(message):
         bot.send_message(message.chat.id, f'Ошибка: {e}')
 
 
-@bot.message_handler(commands=['graph'])
-def create_graph(message):
+
+@bot.message_handler(commands=['bar'])
+def create_bar(message):
     try:
         text = message.text[6:]
         text = text.split(',')
@@ -87,6 +88,60 @@ def create_graph(message):
     except Exception as e:
         bot.send_message(message.chat.id, f'Ошибка: {e}')
 
+
+@bot.message_handler(commands=['graph'])
+def create_graph(message):
+    try:
+        text = message.text[6:]
+        text = text.split(',')
+
+        begin = text[0].strip()
+        end = text[1].strip()
+        step = text[2].strip()
+        func = text[3].strip()
+        func = func.strip('y').strip('=')
+        begin = int(begin)
+        end = int(end)
+        step = int(step)
+
+        save_graph(begin, end, step, func, 'graph.png')
+        with open('graph.png', "rb") as photo:
+            bot.send_photo(message.chat.id, photo)
+    except Exception as e:
+        bot.send_message(message.chat.id, f'Ошибка: {e}')
+
+
+@bot.message_handler(commands=['graphs'])
+def create_graphs(message):
+    text = message.text[7:]
+    text = text.split(',')
+    text1 = text[0].strip().split(' ')
+    text2 = text[1].strip().split(' ')
+    print(text1)
+    print(text2)
+    begin1 = text1[0].strip()
+    end1 = text1[1].strip()
+    step1 = text1[2].strip()
+    func1 = text1[3].strip()
+
+    begin2 = text2[0].strip()
+    end2 = text2[1].strip()
+    step2 = text2[2].strip()
+    func2 = text2[3].strip()
+
+    func1 = func1.strip('y').strip('=')
+    func2 = func2.strip('y').strip('=')
+    print(begin1)
+    begin1 = int(begin1)
+    end1 = int(end1)
+    step1 = int(step1)
+
+    begin2 = int(begin2)
+    end2 = int(end2)
+    step2 = int(step2)
+    save_graph(begin1, end1, step1, func1, begin2, end2, step2, func2, 'graph.png')
+    with open('graph.png', "rb") as photo:
+        bot.send_photo(message.chat.id, photo)
 
 @bot.message_handler(content_types=['text'])
 def another_message(message):
